@@ -1,0 +1,4 @@
+{
+    "serviceName":"Business Service",
+    "serviceURL":"http://localhost:5000/business"
+}
