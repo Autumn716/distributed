@@ -1,6 +1,9 @@
 package grades
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 type Student struct {
 	ID        int
@@ -19,7 +22,10 @@ func (s Student) Average() float32 {
 
 type Students []Student
 
-var students Students
+var (
+	students     Students
+	studentMutex sync.Mutex //增加互斥锁，保证Web并发访问的安全
+)
 
 func (ss Students) GetByID(id int) (*Student, error) {
 	for i := range ss {

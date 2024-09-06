@@ -11,11 +11,10 @@ import (
 
 func main() {
 	log.Run("./distributed.log")
-	host, port := "localhost", "4000"
+	host, port := "localhost", "6000"
 	ServiceAddress := fmt.Sprintf("http://%s:%s", host, port)
-
 	r := registry.Registration{
-		ServiceName: registry.LogService,
+		ServiceName: registry.GradingService,
 		ServiceURL:  ServiceAddress,
 	}
 	ctx, err := service.Start(
@@ -25,7 +24,6 @@ func main() {
 		r,
 		log.RegisterHandlers,
 	)
-
 	if err != nil {
 		stlog.Fatalln(err)
 	}

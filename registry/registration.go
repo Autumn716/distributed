@@ -9,5 +9,6 @@ type ServiceName string
 
 // Existing services are declared as constants
 const (
-	LogService = ServiceName("LogService")
+	LogService     = ServiceName("LogService")
+	GradingService = ServiceName("GradingService")
 )
