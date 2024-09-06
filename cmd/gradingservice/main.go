@@ -14,8 +14,10 @@ func main() {
 	host, port := "localhost", "6000"
 	ServiceAddress := fmt.Sprintf("http://%s:%s", host, port)
 	r := registry.Registration{
-		ServiceName: registry.GradingService,
-		ServiceURL:  ServiceAddress,
+		ServiceName:      registry.GradingService,
+		ServiceURL:       ServiceAddress,
+		RequiredServices: []registry.ServiceName{registry.LogService},
+		ServiceUpdateURL: ServiceAddress + "/services",
 	}
 	ctx, err := service.Start(
 		context.Background(),
@@ -27,6 +29,12 @@ func main() {
 	if err != nil {
 		stlog.Fatalln(err)
 	}
+
+	if logProvier, err := registry.GetProvider(registry.LogService); err == nil {
+		fmt.Printf("Logging service found at: %v\n", logProvier)
+		log.SetClientLogger(logProvier, r.ServiceName)
+	}
+
 	<-ctx.Done()
 
 	fmt.Println("Shutting down log service.")
