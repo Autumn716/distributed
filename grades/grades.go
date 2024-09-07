@@ -34,7 +34,7 @@ func (ss Students) GetByID(id int) (*Student, error) {
 		}
 	}
 
-	return nil, fmt.Errorf("Student With ID %s not found", id)
+	return nil, fmt.Errorf("Student With ID %d not found", id)
 }
 
 type GradeType string
